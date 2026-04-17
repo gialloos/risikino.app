@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Risikino</title>
+  <meta name="description" content="Informativa sulla privacy di Risikino. Come raccogliamo, utilizziamo e proteggiamo i tuoi dati." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legal-page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 40px 100px;
+    }
+    .legal-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--fg-3);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 48px;
+      transition: color var(--transition);
+    }
+    .legal-back:hover { color: var(--fg); }
+    .legal-back svg { width: 16px; height: 16px; }
+    .legal-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(232,185,79,0.1);
+      border: 1px solid rgba(232,185,79,0.2);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .legal-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .legal-meta {
+      font-size: 0.85rem;
+      color: var(--fg-3);
+      margin-bottom: 56px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-body h2 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 40px 0 12px;
+    }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body p {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .legal-body ul {
+      list-style: none;
+      margin: 0 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-body ul li {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+      padding-left: 20px;
+      position: relative;
+    }
+    .legal-body ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+    .legal-body a {
+      color: var(--red-2);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(231,76,60,0.3);
+      transition: border-color var(--transition);
+    }
+    .legal-body a:hover { border-color: var(--red-2); }
+    .legal-highlight {
+      background: rgba(232,185,79,0.05);
+      border: 1px solid rgba(232,185,79,0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .legal-highlight p { margin: 0; font-size: 0.9rem; color: var(--fg-2); }
+    .legal-highlight strong { color: var(--gold); }
+    @media (max-width: 640px) {
+      .legal-page { padding: 90px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="index.html#download" class="nav-link nav-cta">Scarica</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="legal-page">
+
+    <a href="index.html" class="legal-back">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Torna alla home
+    </a>
+
+    <span class="legal-tag">Documenti legali</span>
+    <h1 class="legal-title">Privacy Policy</h1>
+    <p class="legal-meta">Ultimo aggiornamento: 17 aprile 2026 &nbsp;·&nbsp; Versione 1.0</p>
+
+    <div class="legal-body">
+
+      <div class="legal-highlight">
+        <p><strong>In breve:</strong> Risikino raccoglie solo i dati strettamente necessari al funzionamento dell'app. Non vendiamo i tuoi dati a terzi. Puoi richiedere la cancellazione del tuo account in qualsiasi momento.</p>
+      </div>
+
+      <h2>1. Chi siamo</h2>
+      <p>Risikino ("noi", "la nostra app") è un'applicazione mobile per il tracciamento delle statistiche del gioco da tavolo Risiko. Il titolare del trattamento dei dati personali è il suo sviluppatore indipendente.</p>
+      <p>Per qualsiasi domanda relativa alla privacy, puoi contattarci all'indirizzo: <a href="mailto:privacy@risikino.app">privacy@risikino.app</a></p>
+
+      <h2>2. Dati che raccogliamo</h2>
+      <p>Raccogliamo solo i dati necessari a fornire il servizio:</p>
+      <ul>
+        <li><strong>Dati dell'account:</strong> nome utente, indirizzo email (usato per autenticazione tramite Google Sign-In o email/password).</li>
+        <li><strong>Dati di gioco:</strong> partite registrate, statistiche, risultati, giocatori aggiunti manualmente.</li>
+        <li><strong>Dati di utilizzo:</strong> informazioni anonimizzate sull'uso dell'app per migliorare l'esperienza (crash report, sessioni).</li>
+        <li><strong>Dati del dispositivo:</strong> modello del dispositivo, versione del sistema operativo, identificativo anonimo per la diagnostica.</li>
+      </ul>
+      <p>Non raccogliamo dati sensibili, dati di pagamento, né informazioni sulla posizione geografica.</p>
+
+      <h2>3. Come utilizziamo i dati</h2>
+      <ul>
+        <li>Fornire e mantenere le funzionalità dell'app (dashboard statistiche, classifica, storico partite).</li>
+        <li>Autenticare l'utente e proteggere il suo account.</li>
+        <li>Sincronizzare i dati tra i dispositivi dello stesso utente.</li>
+        <li>Migliorare le performance e risolvere i bug tramite analisi anonimizzate.</li>
+        <li>Inviare notifiche relative all'app (solo se l'utente le autorizza).</li>
+      </ul>
+
+      <h2>4. Condivisione dei dati con terze parti</h2>
+      <p>Non vendiamo, affittiamo o cediamo i tuoi dati personali a terzi. Utilizziamo i seguenti servizi di terze parti che possono trattare dati per nostro conto:</p>
+      <ul>
+        <li><strong>Firebase (Google LLC):</strong> autenticazione, database in tempo reale, crash analytics.</li>
+        <li><strong>Google Sign-In:</strong> accesso tramite account Google (opzionale).</li>
+      </ul>
+      <p>Tutti i fornitori sono soggetti alle normative GDPR e alle rispettive privacy policy.</p>
+
+      <h2>5. Conservazione dei dati</h2>
+      <p>I tuoi dati vengono conservati finché mantieni un account attivo su Risikino. Puoi richiedere la cancellazione completa dei tuoi dati in qualsiasi momento, come descritto nella sezione <a href="elimina-account.html">Eliminazione Account</a>. Dopo la cancellazione, i dati vengono rimossi definitivamente entro 30 giorni.</p>
+
+      <h2>6. I tuoi diritti (GDPR)</h2>
+      <p>Se sei residente nell'Unione Europea, hai i seguenti diritti:</p>
+      <ul>
+        <li><strong>Accesso:</strong> puoi richiedere una copia dei tuoi dati personali.</li>
+        <li><strong>Rettifica:</strong> puoi correggere dati inesatti o incompleti.</li>
+        <li><strong>Cancellazione:</strong> puoi richiedere l'eliminazione di tutti i tuoi dati ("diritto all'oblio").</li>
+        <li><strong>Portabilità:</strong> puoi ricevere i tuoi dati in un formato strutturato e leggibile da macchina.</li>
+        <li><strong>Opposizione:</strong> puoi opporti al trattamento dei tuoi dati per finalità di marketing.</li>
+        <li><strong>Limitazione:</strong> puoi richiedere la limitazione del trattamento in determinati casi.</li>
+      </ul>
+      <p>Per esercitare questi diritti, scrivi a <a href="mailto:privacy@risikino.app">privacy@risikino.app</a>.</p>
+
+      <h2>7. Sicurezza</h2>
+      <p>Adottiamo misure tecniche e organizzative adeguate per proteggere i tuoi dati: connessioni cifrate (HTTPS/TLS), autenticazione sicura, accesso limitato ai dati. Nessun sistema è tuttavia completamente sicuro e non possiamo garantire la sicurezza assoluta delle informazioni.</p>
+
+      <h2>8. Minori</h2>
+      <p>Risikino non è destinata a minori di 13 anni. Non raccogliamo consapevolmente dati di minori. Se sei un genitore o tutore e ritieni che tuo figlio abbia fornito dati personali, contattaci immediatamente a <a href="mailto:privacy@risikino.app">privacy@risikino.app</a>.</p>
+
+      <h2>9. Modifiche a questa policy</h2>
+      <p>Potremmo aggiornare questa Privacy Policy periodicamente. In caso di modifiche rilevanti, ti avviseremo tramite una notifica nell'app o via email. Ti invitiamo a consultare questa pagina regolarmente. La data di "ultimo aggiornamento" in cima alla pagina indica quando è stata effettuata l'ultima revisione.</p>
+
+      <h2>10. Contatti</h2>
+      <p>Per qualsiasi domanda, commento o richiesta relativa a questa Privacy Policy, contattaci a:</p>
+      <p>📧 <a href="mailto:privacy@risikino.app">privacy@risikino.app</a></p>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </div>
+      <div style="display:flex;gap:24px;margin-top:8px;">
+        <a href="privacy.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Privacy Policy</a>
+        <a href="elimina-account.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Elimina Account</a>
+      </div>
+      <p class="footer-copy" style="margin-top:12px;">© 2026 Risikino. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

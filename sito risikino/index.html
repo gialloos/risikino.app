@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Risikino — Domina il Risiko con le statistiche</title>
+  <meta name="description" content="Risikino è l'app definitiva per tracciare le statistiche del tuo Risiko. Tieni il conto delle partite, analizza le tue mosse e scopri chi è il vero Generale." />
+  <meta name="theme-color" content="#0a0a12" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background canvas for particle effects -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" id="nav-logo-link">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#stats" class="nav-link">Statistiche</a></li>
+        <li><a href="#how" class="nav-link">Come funziona</a></li>
+        <li><a href="#download" class="nav-link nav-cta">Scarica</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#features" class="mobile-link">Features</a>
+      <a href="#stats" class="mobile-link">Statistiche</a>
+      <a href="#how" class="mobile-link">Come funziona</a>
+      <a href="#download" class="mobile-link mobile-cta">Scarica ora</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="badge-dot"></span>
+        Ora disponibile su iOS &amp; Android
+      </div>
+      <h1 class="hero-title reveal">
+        Domina il <span class="gradient-text">Risiko</span><br/>con le statistiche
+      </h1>
+      <p class="hero-sub reveal">
+        Tieni traccia di ogni partita, analizza le tue strategie e scopri chi tra te e i tuoi amici è il vero Generale. Risikino porta la data science sul tavolo da gioco.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#download" class="btn-primary" id="hero-cta-primary">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg>
+          Scarica gratis
+        </a>
+        <a href="#features" class="btn-secondary" id="hero-cta-secondary">
+          Scopri di più
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <span class="stat-num" data-target="2400">0</span>
+          <span class="stat-label">Partite tracciate</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="380">0</span>
+          <span class="stat-label">Giocatori attivi</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num" data-target="98">0</span>
+          <span class="stat-label">% soddisfazione</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="phone-container reveal">
+        <div class="phone-glow"></div>
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="app-ui">
+              <div class="app-header">
+                <span class="app-title">Game Dashboard</span>
+                <span class="app-subtitle">Current: <em>Europa Blitz</em></span>
+              </div>
+              <div class="app-card win-rate-card">
+                <div class="wr-left">
+                  <div class="wr-avatar">👨‍✈️</div>
+                  <div>
+                    <div class="wr-label">WIN RATE</div>
+                    <div class="wr-value">64.2%</div>
+                    <div class="wr-name">GENERALE</div>
+                  </div>
+                </div>
+                <div class="wr-right">
+                  <div class="wr-label">Territori</div>
+                  <div class="wr-terr">18<span>/42</span></div>
+                  <div class="wr-bar"><div class="wr-fill" style="width:43%"></div></div>
+                </div>
+              </div>
+              <div class="app-card chart-card">
+                <div class="chart-label">Controllo Continenti</div>
+                <div class="bar-chart">
+                  <div class="bar-group"><div class="bar" style="--h:70%;--c:#c0392b"></div><span>EU</span></div>
+                  <div class="bar-group"><div class="bar" style="--h:55%;--c:#e67e22"></div><span>AS</span></div>
+                  <div class="bar-group"><div class="bar" style="--h:40%;--c:#f1c40f"></div><span>AF</span></div>
+                  <div class="bar-group"><div class="bar" style="--h:80%;--c:#c0392b"></div><span>AM</span></div>
+                  <div class="bar-group"><div class="bar" style="--h:30%;--c:#3498db"></div><span>OC</span></div>
+                </div>
+              </div>
+              <div class="app-card leaderboard-card">
+                <div class="lb-title">🏆 Classifica</div>
+                <div class="lb-row lb-gold"><span class="lb-pos">1</span><span class="lb-name">Carla</span><span class="lb-pts">987 XP</span></div>
+                <div class="lb-row"><span class="lb-pos">2</span><span class="lb-name">Bruno</span><span class="lb-pts">856 XP</span></div>
+                <div class="lb-row lb-you"><span class="lb-pos">3</span><span class="lb-name">Tu →</span><span class="lb-pts">793 XP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Floating badges -->
+        <div class="float-badge badge-1 float-anim">
+          <span class="fb-icon">📊</span>
+          <div><div class="fb-title">Stats Live</div><div class="fb-sub">Aggiornamento istantaneo</div></div>
+        </div>
+        <div class="float-badge badge-2 float-anim-slow">
+          <span class="fb-icon">🎯</span>
+          <div><div class="fb-title">+64.2% Win Rate</div><div class="fb-sub">Il tuo record personale</div></div>
+        </div>
+        <div class="float-badge badge-3 float-anim-med">
+          <span class="fb-icon">⚔️</span>
+          <div><div class="fb-title">18 Territori</div><div class="fb-sub">Controllo mappa</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scorri</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header reveal">
+      <span class="section-tag">Features</span>
+      <h2 class="section-title">Tutto ciò che un <span class="gradient-text">Generale</span> merita</h2>
+      <p class="section-sub">Ogni dettaglio della partita registrato, analizzato e presentato in modo impeccabile.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal" id="feat-1">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">📊</div>
+        </div>
+        <h3>Dashboard in tempo reale</h3>
+        <p>Vedi le statistiche della partita aggiornarsi turno per turno. Chi sta guadagnando terreno? Chi perderà presto?</p>
+        <div class="feat-glow"></div>
+      </div>
+      <div class="feature-card reveal" id="feat-2">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">🏆</div>
+        </div>
+        <h3>Classifica globale</h3>
+        <p>Confronta le tue performance storiche con quelle degli amici. Scala la leaderboard e difendi il titolo di Generale Supremo.</p>
+        <div class="feat-glow"></div>
+      </div>
+      <div class="feature-card reveal" id="feat-3">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">🗺️</div>
+        </div>
+        <h3>Mappa interattiva</h3>
+        <p>Visualizza il controllo del territorio su una mappa animata. Osserva l'evoluzione della partita come un vero stratega.</p>
+        <div class="feat-glow"></div>
+      </div>
+      <div class="feature-card reveal" id="feat-4">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">📈</div>
+        </div>
+        <h3>Analisi storica</h3>
+        <p>Grafici dettagliati di ogni partita giocata. Trova i tuoi pattern, correggi i tuoi errori e affina la strategia.</p>
+        <div class="feat-glow"></div>
+      </div>
+      <div class="feature-card reveal" id="feat-5">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">⚡</div>
+        </div>
+        <h3>Sincronizzazione istantanea</h3>
+        <p>Tutti i giocatori al tavolo restano sincronizzati automaticamente. Nessun inserimento manuale, zero distrazioni.</p>
+        <div class="feat-glow"></div>
+      </div>
+      <div class="feature-card reveal" id="feat-6">
+        <div class="feat-icon-wrap">
+          <div class="feat-icon">🎖️</div>
+        </div>
+        <h3>Badge e achievement</h3>
+        <p>Conquista medaglie per le tue imprese: "Primo Sangue", "Dominio Totale", "Rimonta Epica". Ogni vittoria ha la sua gloria.</p>
+        <div class="feat-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SHOWCASE -->
+  <section class="stats-section" id="stats">
+    <div class="stats-inner">
+      <div class="stats-text reveal">
+        <span class="section-tag">Statistiche</span>
+        <h2 class="section-title">I numeri parlano<br/><span class="gradient-text">da soli</span></h2>
+        <p class="section-sub">Risikino trasforma ogni partita in un dataset prezioso. Win rate, distribuzione eserciti, controllo continenti: tutto a portata di swipe.</p>
+        <ul class="stats-list">
+          <li class="stats-item reveal">
+            <div class="si-icon">🎯</div>
+            <div><strong>Win Rate preciso al decimale</strong><br/>Analisi per ogni giocatore, per ogni partita, per ogni continente.</div>
+          </li>
+          <li class="stats-item reveal">
+            <div class="si-icon">📅</div>
+            <div><strong>Storico illimitato</strong><br/>Ogni partita salvata per sempre. Rivivi le tue leggende e studia le sconfitte.</div>
+          </li>
+          <li class="stats-item reveal">
+            <div class="si-icon">👥</div>
+            <div><strong>Multi-giocatore locale</strong><br/>Fino a 6 giocatori nello stesso gruppo. Un'unica app per tutta la compagnia.</div>
+          </li>
+        </ul>
+      </div>
+      <div class="stats-visual reveal">
+        <div class="stats-card-stack">
+          <div class="sc sc-back"></div>
+          <div class="sc sc-mid"></div>
+          <div class="sc sc-front">
+            <div class="scard-header">
+              <span class="scard-title">Win Rate per Continente</span>
+            </div>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 120 120">
+                <circle class="donut-track" cx="60" cy="60" r="48" />
+                <circle class="donut-seg seg-eu" cx="60" cy="60" r="48" stroke-dasharray="70 232" stroke-dashoffset="0"/>
+                <circle class="donut-seg seg-as" cx="60" cy="60" r="48" stroke-dasharray="50 252" stroke-dashoffset="-70"/>
+                <circle class="donut-seg seg-af" cx="60" cy="60" r="48" stroke-dasharray="40 262" stroke-dashoffset="-120"/>
+                <circle class="donut-seg seg-am" cx="60" cy="60" r="48" stroke-dasharray="55 247" stroke-dashoffset="-160"/>
+                <circle class="donut-seg seg-oc" cx="60" cy="60" r="48" stroke-dasharray="87 215" stroke-dashoffset="-215"/>
+                <text x="60" y="56" class="donut-center-label">64.2%</text>
+                <text x="60" y="68" class="donut-center-sub">Win Rate</text>
+              </svg>
+              <div class="donut-legend">
+                <div class="dl-item"><span class="dl-dot" style="background:#c0392b"></span>Europa 23%</div>
+                <div class="dl-item"><span class="dl-dot" style="background:#e67e22"></span>Asia 16%</div>
+                <div class="dl-item"><span class="dl-dot" style="background:#f1c40f"></span>Africa 13%</div>
+                <div class="dl-item"><span class="dl-dot" style="background:#27ae60"></span>America 18%</div>
+                <div class="dl-item"><span class="dl-dot" style="background:#2980b9"></span>Oceania 30%</div>
+              </div>
+            </div>
+            <div class="scard-mini-stats">
+              <div class="ms-item"><span class="ms-val">47</span><span class="ms-lbl">Partite</span></div>
+              <div class="ms-item"><span class="ms-val">30</span><span class="ms-lbl">Vittorie</span></div>
+              <div class="ms-item"><span class="ms-val">17</span><span class="ms-lbl">Sconfitte</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section" id="how">
+    <div class="section-header reveal">
+      <span class="section-tag">Come funziona</span>
+      <h2 class="section-title">Tre passi verso la <span class="gradient-text">gloria</span></h2>
+    </div>
+    <div class="steps-container">
+      <div class="step reveal" id="step-1">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <div class="step-icon">🧑‍🤝‍🧑</div>
+          <h3>Crea la partita</h3>
+          <p>Aggiungi i giocatori, scegli la mappa e personalizza le regole. Risikino è pronto in 30 secondi.</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step reveal" id="step-2">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <div class="step-icon">⚔️</div>
+          <h3>Gioca e registra</h3>
+          <p>Durante la partita, inserisci i movimenti. Le statistiche si aggiornano in tempo reale su tutti i dispositivi.</p>
+        </div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step reveal" id="step-3">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <div class="step-icon">📈</div>
+          <h3>Analizza e migliora</h3>
+          <p>A partita finita, esplora i dati. Scopri i tuoi punti di forza, correggi le debolezze, scala la classifica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CTA -->
+  <section class="download-section" id="download">
+    <div class="download-bg-orb orb-1"></div>
+    <div class="download-bg-orb orb-2"></div>
+    <div class="download-content reveal">
+      <span class="section-tag">Download</span>
+      <h2 class="section-title">Pronto a diventare<br/><span class="gradient-text">Generale Supremo?</span></h2>
+      <p class="section-sub">Gratuito, senza pubblicità, senza abbonamenti. Solo puro Risiko con statistiche da pro.</p>
+      <div class="download-buttons">
+        <a href="#" class="store-btn" id="appstore-btn">
+          <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <div class="store-text">
+            <span class="store-top">Scarica su</span>
+            <span class="store-name">App Store</span>
+          </div>
+        </a>
+        <a href="#" class="store-btn" id="playstore-btn">
+          <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.303l2.302 1.33c.462.267.462.972 0 1.24l-2.302 1.33L15 12l2.698-1.596zM5.864 2.658L16.8 8.99 14.498 11.3 5.863 2.658z"/></svg>
+          <div class="store-text">
+            <span class="store-top">Disponibile su</span>
+            <span class="store-name">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </div>
+      <p class="footer-tagline">Fatta con ❤️ per chi ama conquistare il mondo.</p>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <span class="footer-link-sep">·</span>
+        <a href="elimina-account.html" class="footer-link">Elimina Account</a>
+      </div>
+      <p class="footer-copy">© 2026 Risikino. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

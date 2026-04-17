@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elimina Account — Risikino</title>
+  <meta name="description" content="Scopri come eliminare il tuo account Risikino e tutti i dati associati." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .legal-page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 40px 100px;
+    }
+    .legal-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--fg-3);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 48px;
+      transition: color var(--transition);
+    }
+    .legal-back:hover { color: var(--fg); }
+    .legal-back svg { width: 16px; height: 16px; }
+    .legal-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red-2);
+      background: rgba(231,76,60,0.08);
+      border: 1px solid rgba(231,76,60,0.2);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .legal-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .legal-meta {
+      font-size: 0.85rem;
+      color: var(--fg-3);
+      margin-bottom: 56px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legal-body h2 {
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin: 40px 0 12px;
+    }
+    .legal-body h2:first-child { margin-top: 0; }
+    .legal-body p {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .legal-body ul {
+      list-style: none;
+      margin: 0 0 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .legal-body ul li {
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+      padding-left: 20px;
+      position: relative;
+    }
+    .legal-body ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--red-2);
+      font-size: 0.8rem;
+    }
+    .legal-body a {
+      color: var(--red-2);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(231,76,60,0.3);
+      transition: border-color var(--transition);
+    }
+    .legal-body a:hover { border-color: var(--red-2); }
+
+    /* Warning box */
+    .warn-box {
+      background: rgba(231,76,60,0.06);
+      border: 1px solid rgba(231,76,60,0.25);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 28px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .warn-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+    .warn-box p { margin: 0; font-size: 0.9rem; color: var(--fg-2); }
+    .warn-box strong { color: var(--red-2); }
+
+    /* Info box */
+    .info-box {
+      background: rgba(232,185,79,0.05);
+      border: 1px solid rgba(232,185,79,0.15);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .info-box p { margin: 0; font-size: 0.9rem; color: var(--fg-2); }
+    .info-box strong { color: var(--gold); }
+
+    /* Steps */
+    .steps-list {
+      list-style: none;
+      margin: 0 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step-counter;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      color: var(--fg-2);
+      line-height: 1.7;
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 0;
+    }
+    .steps-list li::before { display: none; }
+    .step-num-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(231,76,60,0.12);
+      border: 1px solid rgba(231,76,60,0.25);
+      color: var(--red-2);
+      font-family: var(--font-head);
+      font-size: 0.8rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text strong { color: var(--fg); display: block; margin-bottom: 4px; }
+
+    /* Email CTA */
+    .email-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-2);
+      border: 1px solid var(--border-h);
+      border-radius: 14px;
+      padding: 16px 24px;
+      text-decoration: none !important;
+      border-bottom: none !important;
+      color: var(--fg) !important;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 8px;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .email-cta:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(231,76,60,0.4);
+      transform: translateY(-2px);
+    }
+    .email-cta-icon { font-size: 1.2rem; }
+
+    @media (max-width: 640px) {
+      .legal-page { padding: 90px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="index.html#download" class="nav-link nav-cta">Scarica</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="legal-page">
+
+    <a href="index.html" class="legal-back">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Torna alla home
+    </a>
+
+    <span class="legal-tag">Account</span>
+    <h1 class="legal-title">Eliminazione Account</h1>
+    <p class="legal-meta">Ultimo aggiornamento: 17 aprile 2026</p>
+
+    <div class="legal-body">
+
+      <p>Hai il diritto di eliminare il tuo account Risikino e tutti i dati personali a esso associati in qualsiasi momento, senza dover fornire alcuna motivazione.</p>
+
+      <div class="warn-box">
+        <span class="warn-icon">⚠️</span>
+        <p><strong>Attenzione:</strong> l'eliminazione dell'account è un'operazione permanente e irreversibile. Tutte le tue partite, statistiche, preferenze e dati di profilo verranno eliminati definitivamente e non potranno essere recuperati.</p>
+      </div>
+
+      <h2>Cosa viene eliminato</h2>
+      <p>Con la cancellazione dell'account vengono rimossi in modo permanente:</p>
+      <ul>
+        <li>Il profilo utente (nome, email, avatar)</li>
+        <li>Tutte le partite registrate e il relativo storico</li>
+        <li>Le statistiche personali (win rate, punteggi, classifiche)</li>
+        <li>I gruppi di gioco creati o a cui partecipi</li>
+        <li>Le preferenze e impostazioni dell'app</li>
+        <li>Eventuali badge e achievement ottenuti</li>
+      </ul>
+
+      <div class="info-box">
+        <p><strong>Nota:</strong> i dati vengono rimossi definitivamente dai nostri sistemi entro <strong>30 giorni</strong> dalla richiesta. Eventuali copie di backup vengono purgate nel successivo ciclo di manutenzione.</p>
+      </div>
+
+      <h2>Metodo 1 — Dall'app (scelta consigliata)</h2>
+      <p>Puoi eliminare il tuo account direttamente dall'app Risikino seguendo questi passaggi:</p>
+      <ol class="steps-list">
+        <li>
+          <span class="step-num-circle">1</span>
+          <span class="step-text"><strong>Apri l'app Risikino</strong>Accedi con il tuo account se non sei già connesso.</span>
+        </li>
+        <li>
+          <span class="step-num-circle">2</span>
+          <span class="step-text"><strong>Vai al tuo Profilo</strong>Tocca l'icona del profilo in basso a destra nella barra di navigazione.</span>
+        </li>
+        <li>
+          <span class="step-num-circle">3</span>
+          <span class="step-text"><strong>Apri le Impostazioni</strong>Tocca l'icona ⚙️ in alto a destra nella schermata del profilo.</span>
+        </li>
+        <li>
+          <span class="step-num-circle">4</span>
+          <span class="step-text"><strong>Seleziona "Elimina Account"</strong>Scorri in fondo alla pagina delle impostazioni e tocca "Elimina Account".</span>
+        </li>
+        <li>
+          <span class="step-num-circle">5</span>
+          <span class="step-text"><strong>Conferma l'eliminazione</strong>Leggi il riepilogo di ciò che verrà eliminato e conferma tocando "Sì, elimina il mio account". Potrebbe essere richiesta la riautenticazione.</span>
+        </li>
+      </ol>
+
+      <h2>Metodo 2 — Tramite email</h2>
+      <p>Se non riesci ad accedere all'app o preferisci procedere via email, invia una richiesta di eliminazione all'indirizzo:</p>
+      <a href="mailto:elimina@risikino.app?subject=Richiesta%20eliminazione%20account&body=Ciao%2C%0A%0AVorrei%20richiedere%20l'eliminazione%20del%20mio%20account%20Risikino%20e%20di%20tutti%20i%20dati%20associati.%0A%0AEmail%20account%3A%20[inserisci%20qui%20la%20tua%20email]%0A%0AGrazie." class="email-cta">
+        <span class="email-cta-icon">📧</span>
+        elimina@risikino.app
+      </a>
+      <p style="margin-top:16px;">Nella tua email indica:</p>
+      <ul>
+        <li>L'indirizzo email associato al tuo account Risikino</li>
+        <li>Il nome utente (se lo ricordi)</li>
+        <li>L'oggetto: <em>"Richiesta eliminazione account"</em></li>
+      </ul>
+      <p>Ti risponderemo entro <strong>48 ore</strong> per confermare la presa in carico della richiesta. L'eliminazione sarà completata entro 30 giorni.</p>
+
+      <h2>Cosa succede dopo l'eliminazione</h2>
+      <ul>
+        <li>Non potrai più accedere all'app con quelle credenziali</li>
+        <li>I tuoi dati non saranno più visibili ad altri giocatori</li>
+        <li>Se hai usato Google Sign-In, la revoca dell'accesso avviene automaticamente</li>
+        <li>Potrai creare un nuovo account in qualsiasi momento con la stessa email</li>
+      </ul>
+
+      <h2>Hai ripensato?</h2>
+      <p>Se vuoi continuare a usare Risikino ma desideri solo cancellare alcune partite o resettare le statistiche, puoi farlo dall'app senza dover eliminare l'account. Vai in <strong>Impostazioni → Gestione Dati</strong> per le opzioni disponibili.</p>
+
+      <h2>Contatti</h2>
+      <p>Per qualsiasi dubbio o problema con la cancellazione dell'account, non esitare a contattarci:</p>
+      <p>📧 <a href="mailto:support@risikino.app">support@risikino.app</a></p>
+      <p>Faremo del nostro meglio per risponderti entro 48 ore nei giorni lavorativi.</p>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">♟️</span>
+        <span class="logo-text">Risikino</span>
+      </div>
+      <div style="display:flex;gap:24px;margin-top:8px;">
+        <a href="privacy.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Privacy Policy</a>
+        <a href="elimina-account.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Elimina Account</a>
+      </div>
+      <p class="footer-copy" style="margin-top:12px;">© 2026 Risikino. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
