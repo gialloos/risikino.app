@@ -42,19 +42,19 @@
   onScroll();
 
   // ---------- Mobile menu ----------
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobile-menu');
+  const backdrop    = document.getElementById('menu-backdrop');
+  const mobileClose = document.getElementById('mobile-close');
+
+  const openMenu  = () => { hamburger.classList.add('open');    mobileMenu.classList.add('open');    if (backdrop) backdrop.classList.add('open');    document.body.style.overflow = 'hidden'; };
+  const closeMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); if (backdrop) backdrop.classList.remove('open'); document.body.style.overflow = ''; };
+
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-      });
-    });
+    hamburger.addEventListener('click', () => hamburger.classList.contains('open') ? closeMenu() : openMenu());
+    if (backdrop)    backdrop.addEventListener('click', closeMenu);
+    if (mobileClose) mobileClose.addEventListener('click', closeMenu);
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   }
 
   // ---------- Reveal on scroll ----------
@@ -104,7 +104,7 @@
 
   // ---------- Carretto picker ----------
   const chips = document.querySelectorAll('.cart-chip');
-  const bigCartUse = document.querySelector('#cs-big-cart use');
+  const bigCart = document.getElementById('cs-big-cart');
   const csName = document.getElementById('cs-name');
   const csDesc = document.getElementById('cs-desc');
   const csDescBox = document.querySelector('.cs-description');
@@ -118,13 +118,12 @@
       const name = chip.dataset.name;
       const desc = chip.dataset.desc;
 
-      // animate carretto change
-      if (bigCartUse) {
-        const bigCart = document.getElementById('cs-big-cart');
+      // animate carretto change — use style.color (works with currentColor in <use>)
+      if (bigCart) {
         bigCart.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
         bigCart.style.transform = 'scale(0.82) rotate(-4deg)';
         setTimeout(() => {
-          bigCartUse.setAttribute('fill', color.trim());
+          bigCart.style.color = color.trim();
           bigCart.style.transform = '';
         }, 180);
       }
