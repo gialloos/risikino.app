@@ -5,22 +5,29 @@
 (function () {
   'use strict';
 
-  // ---------- Theme toggle ----------
+  // ---------- Theme ----------
   const THEME_KEY = 'risikino-theme';
-  const root = document.body;
-  const savedTheme = localStorage.getItem(THEME_KEY);
-  if (savedTheme === 'dark') root.setAttribute('data-theme', 'dark');
+  const root = document.documentElement;
 
+  const applyTheme = (dark) => {
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#14110C' : '#F5F1EA');
+  };
+
+  // Follow system changes when the user has not set a manual preference
+  const sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+  sysDark.addEventListener('change', (e) => {
+    if (!localStorage.getItem(THEME_KEY)) applyTheme(e.matches);
+  });
+
+  // Manual toggle — saves preference and overrides system
   const themeToggle = document.getElementById('theme-toggle');
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const cur = root.getAttribute('data-theme');
-      const next = cur === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem(THEME_KEY, next);
-      // theme-color meta
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute('content', next === 'dark' ? '#14110C' : '#F5F1EA');
+      const next = root.getAttribute('data-theme') !== 'dark';
+      applyTheme(next);
+      localStorage.setItem(THEME_KEY, next ? 'dark' : 'light');
     });
   }
 
