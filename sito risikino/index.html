@@ -80,13 +80,43 @@
         </button>
       </div>
     </div>
-    <div class="mobile-menu" id="mobile-menu">
+  </nav>
+
+  <div class="menu-backdrop" id="menu-backdrop"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-head">
+      <div class="mobile-menu-brand">
+        <span class="logo-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" style="fill:var(--ink)"/>
+            <g style="color:#C8982E" transform="translate(5,28.6) scale(0.066)">
+              <use href="#carretto-path"/>
+            </g>
+          </svg>
+        </span>
+        <span class="logo-text">Risikino</span>
+      </div>
+      <button class="mobile-close" id="mobile-close" aria-label="Chiudi menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav">
       <a href="#features" class="mobile-link">Come funziona</a>
       <a href="#carretti" class="mobile-link">Carretti</a>
       <a href="#diario" class="mobile-link">Diario</a>
-      <a href="#download" class="mobile-link mobile-cta">Scarica ora</a>
+    </nav>
+    <div class="mobile-menu-footer">
+      <a href="#download" class="mobile-cta">Scarica gratis</a>
+      <div class="mobile-deco-carts">
+        <div style="color:#D4441F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div style="color:#C8982E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div style="color:#2E6F4A"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div style="color:#7F3E8E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+      </div>
     </div>
-  </nav>
+  </div>
 
   <!-- HERO -->
   <section class="hero" id="hero">
@@ -408,7 +438,7 @@
           <circle cx="300" cy="300" r="180" fill="none" stroke="currentColor" stroke-width="1" opacity="0.12"/>
         </svg>
         <div class="cs-cart-display">
-          <svg class="cs-carretto" viewBox="0 0 1363 649" id="cs-big-cart"><use href="#carretto-path" fill="#D4441F"/></svg>
+          <svg class="cs-carretto" viewBox="0 0 1363 649" id="cs-big-cart" style="color:#D4441F"><use href="#carretto-path"/></svg>
         </div>
       </div>
 
