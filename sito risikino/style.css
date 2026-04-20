@@ -310,9 +310,9 @@ body {
 
 .mobile-menu {
   position: fixed;
-  top: 0; right: 0;
+  top: 72px; right: 0;
   width: min(300px, 85vw);
-  height: 100dvh;
+  height: calc(100dvh - 72px);
   background: var(--paper);
   border-left: 1px solid var(--line);
   display: flex;
