@@ -44,12 +44,14 @@
   // ---------- Mobile menu ----------
   const hamburger   = document.getElementById('hamburger');
   const mobileMenu  = document.getElementById('mobile-menu');
+  const mobileClose = document.getElementById('mobile-close');
 
   const openMenu  = () => { hamburger.classList.add('open');    mobileMenu.classList.add('open');    document.body.style.overflow = 'hidden'; };
   const closeMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow = ''; };
 
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => hamburger.classList.contains('open') ? closeMenu() : openMenu());
+    if (mobileClose) mobileClose.addEventListener('click', closeMenu);
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   }
 
