@@ -47,8 +47,8 @@
   const backdrop    = document.getElementById('menu-backdrop');
   const mobileClose = document.getElementById('mobile-close');
 
-  const openMenu  = () => { hamburger.classList.add('open');    mobileMenu.classList.add('open');    if (backdrop) backdrop.classList.add('open');    document.body.style.overflow = 'hidden'; };
-  const closeMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); if (backdrop) backdrop.classList.remove('open'); document.body.style.overflow = ''; };
+  const openMenu  = () => { hamburger.classList.add('open');    mobileMenu.classList.add('open');    if (backdrop) backdrop.classList.add('open');    if (navbar) navbar.classList.add('menu-open');    document.body.style.overflow = 'hidden'; };
+  const closeMenu = () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); if (backdrop) backdrop.classList.remove('open'); if (navbar) navbar.classList.remove('menu-open'); document.body.style.overflow = ''; };
 
   if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => hamburger.classList.contains('open') ? closeMenu() : openMenu());
