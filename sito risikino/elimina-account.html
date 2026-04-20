@@ -5,213 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Elimina Account — Risikino</title>
   <meta name="description" content="Scopri come eliminare il tuo account Risikino e tutti i dati associati." />
+  <meta name="theme-color" content="#F5F1EA" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="shortcut icon" href="favicon.svg" />
+  <script>
+    (function(){
+      var saved = localStorage.getItem('risikino-theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute('content', dark ? '#14110C' : '#F5F1EA');
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .legal-page {
-      position: relative;
-      z-index: 1;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 120px 40px 100px;
-    }
-    .legal-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--fg-3);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 48px;
-      transition: color var(--transition);
-    }
-    .legal-back:hover { color: var(--fg); }
-    .legal-back svg { width: 16px; height: 16px; }
-    .legal-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red-2);
-      background: rgba(231,76,60,0.08);
-      border: 1px solid rgba(231,76,60,0.2);
-      padding: 4px 14px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-    }
-    .legal-title {
-      font-family: var(--font-head);
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    .legal-meta {
-      font-size: 0.85rem;
-      color: var(--fg-3);
-      margin-bottom: 56px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-    }
-    .legal-body h2 {
-      font-family: var(--font-head);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--fg);
-      margin: 40px 0 12px;
-    }
-    .legal-body h2:first-child { margin-top: 0; }
-    .legal-body p {
-      font-size: 0.95rem;
-      color: var(--fg-2);
-      line-height: 1.85;
-      margin-bottom: 14px;
-    }
-    .legal-body ul {
-      list-style: none;
-      margin: 0 0 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .legal-body ul li {
-      font-size: 0.95rem;
-      color: var(--fg-2);
-      line-height: 1.7;
-      padding-left: 20px;
-      position: relative;
-    }
-    .legal-body ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--red-2);
-      font-size: 0.8rem;
-    }
-    .legal-body a {
-      color: var(--red-2);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(231,76,60,0.3);
-      transition: border-color var(--transition);
-    }
-    .legal-body a:hover { border-color: var(--red-2); }
-
-    /* Warning box */
-    .warn-box {
-      background: rgba(231,76,60,0.06);
-      border: 1px solid rgba(231,76,60,0.25);
-      border-radius: 14px;
-      padding: 20px 24px;
-      margin: 28px 0;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-    .warn-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
-    .warn-box p { margin: 0; font-size: 0.9rem; color: var(--fg-2); }
-    .warn-box strong { color: var(--red-2); }
-
-    /* Info box */
-    .info-box {
-      background: rgba(232,185,79,0.05);
-      border: 1px solid rgba(232,185,79,0.15);
-      border-radius: 14px;
-      padding: 20px 24px;
-      margin: 28px 0;
-    }
-    .info-box p { margin: 0; font-size: 0.9rem; color: var(--fg-2); }
-    .info-box strong { color: var(--gold); }
-
-    /* Steps */
-    .steps-list {
-      list-style: none;
-      margin: 0 0 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      counter-reset: step-counter;
-    }
-    .steps-list li {
-      display: flex;
-      gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.95rem;
-      color: var(--fg-2);
-      line-height: 1.7;
-      counter-increment: step-counter;
-      position: relative;
-      padding-left: 0;
-    }
-    .steps-list li::before { display: none; }
-    .step-num-circle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(231,76,60,0.12);
-      border: 1px solid rgba(231,76,60,0.25);
-      color: var(--red-2);
-      font-family: var(--font-head);
-      font-size: 0.8rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .step-text strong { color: var(--fg); display: block; margin-bottom: 4px; }
-
-    /* Email CTA */
-    .email-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--bg-2);
-      border: 1px solid var(--border-h);
-      border-radius: 14px;
-      padding: 16px 24px;
-      text-decoration: none !important;
-      border-bottom: none !important;
-      color: var(--fg) !important;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-top: 8px;
-      transition: background var(--transition), border-color var(--transition), transform var(--transition);
-    }
-    .email-cta:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: rgba(231,76,60,0.4);
-      transform: translateY(-2px);
-    }
-    .email-cta-icon { font-size: 1.2rem; }
-
-    @media (max-width: 640px) {
-      .legal-page { padding: 90px 20px 80px; }
-    }
-  </style>
 </head>
 <body>
 
-  <canvas id="bg-canvas"></canvas>
+  <!-- Paper texture layer -->
+  <div class="paper-bg" aria-hidden="true">
+    <svg class="topo-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="hexGrid" x="0" y="0" width="56" height="48.5" patternUnits="userSpaceOnUse">
+          <path d="M28 0 L56 16 L56 48 L28 65 L0 48 L0 16 Z" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+        </pattern>
+      </defs>
+      <rect width="1600" height="1000" fill="url(#hexGrid)" color="#8C7558"/>
+    </svg>
+    <svg class="topo-contours" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke="#8C7558" stroke-width="1" opacity="0.18">
+        <path d="M-50,120 Q300,60 600,180 T1250,140 T1700,200"/>
+        <path d="M-50,260 Q350,220 650,320 T1300,280 T1700,340"/>
+        <path d="M-50,420 Q280,380 560,460 T1200,440 T1700,500"/>
+        <path d="M-50,600 Q340,540 700,640 T1350,600 T1700,680"/>
+        <path d="M-50,780 Q280,720 620,820 T1250,780 T1700,860"/>
+      </g>
+    </svg>
+  </div>
 
+  <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <span class="logo-icon">♟️</span>
+      <a href="index.html" class="nav-logo" id="nav-logo-link">
+        <span class="logo-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect class="logo-bg" width="100" height="100" rx="22"/>
+            <g fill="#C8982E" transform="translate(5,28.6) scale(0.066)">
+              <path d="M289,23.54c1.47-10.34,14.12-22.15,24.51-23.48l289.03-.06c13.82,2.03,23.72,11.25,26.04,25.1l296.82.05c18.12,2.34,27.53,17.35,25.6,34.9l386.42.08c11.74,2.61,24.13,10.41,25.59,23.41,1.15,10.2,1.34,45.03-.46,54.55-1.29,6.81-7.66,15.04-13.86,18.14-.94.47-6.8,2.82-7.18,2.82h-41.5v35.5c0,9.47-18.07,22.92-27.92,20.85l-205.07-.35c-.47,1.92.71,1.93,1.68,2.81,31.79,28.93,55.73,71.19,67.58,112.42,45.06,156.71-74.83,312.52-234.72,318.81H241.47c-184.92-11.05-302.02-208.96-208.63-374.71,35.61-63.21,102.12-111.57,173.94-124.06,27.39-4.76,54.46-4.63,82.23-4.27V23.55h-.01Z"/>
+              <path d="M978.59,288.48c67.39,59.39,63.83,165.7-6.7,220.96-30.65,24.01-63.15,30.74-101.35,31.65-200.94,4.78-403.7-3.72-605.09,0-66.26-1.15-124.66-42.29-142.17-106.83-24.8-91.44,43.92-179.79,137.27-182.76l622.4.02c34.87.2,69.63,14.05,95.64,36.97h0Z"/>
+              <path d="M338.65,326.39c47.28,47.28,34.1,125.29-24.14,156.66-68.43,36.85-152.71-19.37-144.49-96.5,8.59-80.68,110.5-118.29,168.63-60.16Z"/>
+              <path d="M954.59,457.63c-49.46,61.76-149.96,42.04-171.85-33.83-23.85-82.68,64.4-153.92,140.75-114.75,54.84,28.14,69.65,100.45,31.1,148.58Z"/>
+            </g>
+          </svg>
+        </span>
         <span class="logo-text">Risikino</span>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html#features" class="nav-link">Features</a></li>
+        <li><a href="index.html#features" class="nav-link">Come funziona</a></li>
+        <li><a href="index.html#carretti" class="nav-link">Carretti</a></li>
         <li><a href="index.html#download" class="nav-link nav-cta">Scarica</a></li>
       </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Cambia tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-nav">
+      <a href="index.html#features" class="mobile-link">Come funziona</a>
+      <a href="index.html#carretti" class="mobile-link">Carretti</a>
+      <a href="index.html#diario" class="mobile-link">Diario</a>
+      <a href="index.html#download" class="mobile-link mobile-link-cta">Scarica gratis</a>
+    </nav>
+  </div>
 
   <main class="legal-page">
 
@@ -220,7 +100,7 @@
       Torna alla home
     </a>
 
-    <span class="legal-tag">Account</span>
+    <span class="legal-tag is-warn">Account</span>
     <h1 class="legal-title">Eliminazione Account</h1>
     <p class="legal-meta">Ultimo aggiornamento: 17 aprile 2026</p>
 
@@ -229,7 +109,7 @@
       <p>Hai il diritto di eliminare il tuo account Risikino e tutti i dati personali a esso associati in qualsiasi momento, senza dover fornire alcuna motivazione.</p>
 
       <div class="warn-box">
-        <span class="warn-icon">⚠️</span>
+        <span class="warn-icon">⚠</span>
         <p><strong>Attenzione:</strong> l'eliminazione dell'account è un'operazione permanente e irreversibile. Tutte le tue partite, statistiche, preferenze e dati di profilo verranno eliminati definitivamente e non potranno essere recuperati.</p>
       </div>
 
@@ -261,7 +141,7 @@
         </li>
         <li>
           <span class="step-num-circle">3</span>
-          <span class="step-text"><strong>Apri le Impostazioni</strong>Tocca l'icona ⚙️ in alto a destra nella schermata del profilo.</span>
+          <span class="step-text"><strong>Apri le Impostazioni</strong>Tocca l'icona ⚙ in alto a destra nella schermata del profilo.</span>
         </li>
         <li>
           <span class="step-num-circle">4</span>
@@ -269,14 +149,14 @@
         </li>
         <li>
           <span class="step-num-circle">5</span>
-          <span class="step-text"><strong>Conferma l'eliminazione</strong>Leggi il riepilogo di ciò che verrà eliminato e conferma tocando "Sì, elimina il mio account". Potrebbe essere richiesta la riautenticazione.</span>
+          <span class="step-text"><strong>Conferma l'eliminazione</strong>Leggi il riepilogo di ciò che verrà eliminato e conferma toccando "Sì, elimina il mio account". Potrebbe essere richiesta la riautenticazione.</span>
         </li>
       </ol>
 
       <h2>Metodo 2 — Tramite email</h2>
       <p>Se non riesci ad accedere all'app o preferisci procedere via email, invia una richiesta di eliminazione all'indirizzo:</p>
       <a href="mailto:elimina@risikino.app?subject=Richiesta%20eliminazione%20account&body=Ciao%2C%0A%0AVorrei%20richiedere%20l'eliminazione%20del%20mio%20account%20Risikino%20e%20di%20tutti%20i%20dati%20associati.%0A%0AEmail%20account%3A%20[inserisci%20qui%20la%20tua%20email]%0A%0AGrazie." class="email-cta">
-        <span class="email-cta-icon">📧</span>
+        <span class="email-cta-icon">✉</span>
         elimina@risikino.app
       </a>
       <p style="margin-top:16px;">Nella tua email indica:</p>
@@ -300,7 +180,7 @@
 
       <h2>Contatti</h2>
       <p>Per qualsiasi dubbio o problema con la cancellazione dell'account, non esitare a contattarci:</p>
-      <p>📧 <a href="mailto:support@risikino.app">support@risikino.app</a></p>
+      <p><a href="mailto:support@risikino.app">support@risikino.app</a></p>
       <p>Faremo del nostro meglio per risponderti entro 48 ore nei giorni lavorativi.</p>
 
     </div>
@@ -309,14 +189,26 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="logo-icon">♟️</span>
+        <span class="logo-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect class="logo-bg" width="100" height="100" rx="22"/>
+            <g fill="#C8982E" transform="translate(5,28.6) scale(0.066)">
+              <path d="M289,23.54c1.47-10.34,14.12-22.15,24.51-23.48l289.03-.06c13.82,2.03,23.72,11.25,26.04,25.1l296.82.05c18.12,2.34,27.53,17.35,25.6,34.9l386.42.08c11.74,2.61,24.13,10.41,25.59,23.41,1.15,10.2,1.34,45.03-.46,54.55-1.29,6.81-7.66,15.04-13.86,18.14-.94.47-6.8,2.82-7.18,2.82h-41.5v35.5c0,9.47-18.07,22.92-27.92,20.85l-205.07-.35c-.47,1.92.71,1.93,1.68,2.81,31.79,28.93,55.73,71.19,67.58,112.42,45.06,156.71-74.83,312.52-234.72,318.81H241.47c-184.92-11.05-302.02-208.96-208.63-374.71,35.61-63.21,102.12-111.57,173.94-124.06,27.39-4.76,54.46-4.63,82.23-4.27V23.55h-.01Z"/>
+              <path d="M978.59,288.48c67.39,59.39,63.83,165.7-6.7,220.96-30.65,24.01-63.15,30.74-101.35,31.65-200.94,4.78-403.7-3.72-605.09,0-66.26-1.15-124.66-42.29-142.17-106.83-24.8-91.44,43.92-179.79,137.27-182.76l622.4.02c34.87.2,69.63,14.05,95.64,36.97h0Z"/>
+              <path d="M338.65,326.39c47.28,47.28,34.1,125.29-24.14,156.66-68.43,36.85-152.71-19.37-144.49-96.5,8.59-80.68,110.5-118.29,168.63-60.16Z"/>
+              <path d="M954.59,457.63c-49.46,61.76-149.96,42.04-171.85-33.83-23.85-82.68,64.4-153.92,140.75-114.75,54.84,28.14,69.65,100.45,31.1,148.58Z"/>
+            </g>
+          </svg>
+        </span>
         <span class="logo-text">Risikino</span>
       </div>
-      <div style="display:flex;gap:24px;margin-top:8px;">
-        <a href="privacy.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Privacy Policy</a>
-        <a href="elimina-account.html" style="color:var(--fg-3);font-size:0.82rem;text-decoration:none;border-bottom:1px solid var(--border);">Elimina Account</a>
+      <p class="footer-tagline">Fatto con rispetto per chi il giovedì sera <em>conquista davvero</em>.</p>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <span class="footer-sep">·</span>
+        <a href="elimina-account.html" class="footer-link">Elimina Account</a>
       </div>
-      <p class="footer-copy" style="margin-top:12px;">© 2026 Risikino. Tutti i diritti riservati.</p>
+      <p class="footer-copy">© 2026 Risikino · Tutti i carretti riservati.</p>
     </div>
   </footer>
 
