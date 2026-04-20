@@ -3,327 +3,556 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Risikino — Domina il Risiko con le statistiche</title>
-  <meta name="description" content="Risikino è l'app definitiva per tracciare le statistiche del tuo Risiko. Tieni il conto delle partite, analizza le tue mosse e scopri chi è il vero Generale." />
-  <meta name="theme-color" content="#0a0a12" />
+  <title>Risikino — Il diario di bordo del tuo Risiko</title>
+  <meta name="description" content="Risikino è l'app per chi prende il Risiko sul serio. Traccia ogni partita, scegli il tuo carretto, domina la classifica del giovedì sera." />
+  <meta name="theme-color" content="#F5F1EA" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-theme="light">
 
-  <!-- Background canvas for particle effects -->
-  <canvas id="bg-canvas"></canvas>
+  <!-- Paper texture layer + topographic map -->
+  <div class="paper-bg" aria-hidden="true">
+    <svg class="topo-svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <pattern id="hexGrid" x="0" y="0" width="56" height="48.5" patternUnits="userSpaceOnUse">
+          <path d="M28 0 L56 16 L56 48 L28 65 L0 48 L0 16 Z" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4"/>
+        </pattern>
+      </defs>
+      <rect width="1600" height="1000" fill="url(#hexGrid)" color="#8C7558"/>
+    </svg>
+    <svg class="topo-contours" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+      <g fill="none" stroke="#8C7558" stroke-width="1" opacity="0.18">
+        <path d="M-50,120 Q300,60 600,180 T1250,140 T1700,200"/>
+        <path d="M-50,260 Q350,220 650,320 T1300,280 T1700,340"/>
+        <path d="M-50,420 Q280,380 560,460 T1200,440 T1700,500"/>
+        <path d="M-50,600 Q340,540 700,640 T1350,600 T1700,680"/>
+        <path d="M-50,780 Q280,720 620,820 T1250,780 T1700,860"/>
+      </g>
+    </svg>
+  </div>
 
   <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo" id="nav-logo-link">
-        <span class="logo-icon">♟️</span>
+        <span class="logo-mark">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" fill="#D4441F"/>
+            <path d="M10 26 L20 10 L30 26 Z" fill="#F5F1EA"/>
+            <circle cx="20" cy="22" r="3" fill="#C8982E"/>
+          </svg>
+        </span>
         <span class="logo-text">Risikino</span>
       </a>
       <ul class="nav-links">
-        <li><a href="#features" class="nav-link">Features</a></li>
-        <li><a href="#stats" class="nav-link">Statistiche</a></li>
-        <li><a href="#how" class="nav-link">Come funziona</a></li>
+        <li><a href="#features" class="nav-link">Come funziona</a></li>
+        <li><a href="#carretti" class="nav-link">Carretti</a></li>
+        <li><a href="#diario" class="nav-link">Diario</a></li>
         <li><a href="#download" class="nav-link nav-cta">Scarica</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Cambia tema">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+          </svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="mobile-menu" id="mobile-menu">
-      <a href="#features" class="mobile-link">Features</a>
-      <a href="#stats" class="mobile-link">Statistiche</a>
-      <a href="#how" class="mobile-link">Come funziona</a>
+      <a href="#features" class="mobile-link">Come funziona</a>
+      <a href="#carretti" class="mobile-link">Carretti</a>
+      <a href="#diario" class="mobile-link">Diario</a>
       <a href="#download" class="mobile-link mobile-cta">Scarica ora</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero-content">
-      <div class="hero-badge reveal">
-        <span class="badge-dot"></span>
-        Ora disponibile su iOS &amp; Android
-      </div>
-      <h1 class="hero-title reveal">
-        Domina il <span class="gradient-text">Risiko</span><br/>con le statistiche
-      </h1>
-      <p class="hero-sub reveal">
-        Tieni traccia di ogni partita, analizza le tue strategie e scopri chi tra te e i tuoi amici è il vero Generale. Risikino porta la data science sul tavolo da gioco.
-      </p>
-      <div class="hero-actions reveal">
-        <a href="#download" class="btn-primary" id="hero-cta-primary">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg>
-          Scarica gratis
-        </a>
-        <a href="#features" class="btn-secondary" id="hero-cta-secondary">
-          Scopri di più
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        </a>
-      </div>
-      <div class="hero-stats reveal">
-        <div class="hero-stat">
-          <span class="stat-num" data-target="2400">0</span>
-          <span class="stat-label">Partite tracciate</span>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow reveal">
+          <span class="pulse-dot"></span>
+          Capitolo 47 · Giovedì sera
         </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num" data-target="380">0</span>
-          <span class="stat-label">Giocatori attivi</span>
+        <h1 class="hero-title reveal">
+          Il diario di bordo<br/>
+          del tuo <span class="title-risiko">Risiko<svg class="title-underline" viewBox="0 0 240 12" preserveAspectRatio="none"><path d="M2 8 Q60 2, 120 6 T238 4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+        </h1>
+        <p class="hero-sub reveal">
+          Ogni partita merita di essere ricordata. Scegli il tuo carretto, segna le conquiste, dimostra a Carla che la rimonta dell'altra volta non è stata un caso.
+        </p>
+
+        <div class="hero-actions reveal">
+          <a href="#download" class="btn-primary">
+            <span class="btn-primary-bg"></span>
+            <span class="btn-primary-content">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Scarica gratis
+            </span>
+          </a>
+          <a href="#features" class="btn-ghost">
+            Fai il giro
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="stat-num" data-target="98">0</span>
-          <span class="stat-label">% soddisfazione</span>
+
+        <div class="hero-stats reveal">
+          <div class="hero-stat">
+            <span class="stat-num" data-target="2400">0</span>
+            <span class="stat-label">Partite tracciate</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num" data-target="380">0</span>
+            <span class="stat-label">Generali attivi</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-num" data-target="98" data-suffix="%">0</span>
+            <span class="stat-label">Tavoli soddisfatti</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="hero-visual">
-      <div class="phone-container reveal">
-        <div class="phone-glow"></div>
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="app-ui">
-              <div class="app-header">
-                <span class="app-title">Game Dashboard</span>
-                <span class="app-subtitle">Current: <em>Europa Blitz</em></span>
+
+      <!-- Phone mock -->
+      <div class="hero-visual reveal">
+        <div class="phone-stage">
+
+          <!-- Floating notes -->
+          <div class="note note-1">
+            <span class="note-pin"></span>
+            <div class="note-row">
+              <svg class="note-carretto" viewBox="0 0 1363 649"><use href="#carretto-path" fill="#7F3E8E"/></svg>
+              <div>
+                <div class="note-title">+7 territori</div>
+                <div class="note-sub">Carla, Asia</div>
               </div>
-              <div class="app-card win-rate-card">
-                <div class="wr-left">
-                  <div class="wr-avatar">👨‍✈️</div>
-                  <div>
-                    <div class="wr-label">WIN RATE</div>
-                    <div class="wr-value">64.2%</div>
-                    <div class="wr-name">GENERALE</div>
+            </div>
+          </div>
+
+          <div class="note note-2">
+            <span class="note-pin"></span>
+            <div class="note-timer">
+              <span class="timer-label">Timer turno</span>
+              <span class="timer-value">02:47</span>
+            </div>
+          </div>
+
+          <div class="note note-3">
+            <div class="note-dice">
+              <div class="die die-attack" data-face="6">
+                <span class="pip tl"></span><span class="pip tr"></span>
+                <span class="pip ml"></span><span class="pip mr"></span>
+                <span class="pip bl"></span><span class="pip br"></span>
+              </div>
+              <div class="die die-defend" data-face="3">
+                <span class="pip tl"></span><span class="pip c"></span><span class="pip br"></span>
+              </div>
+            </div>
+            <div class="note-dice-label">Attacco vinto</div>
+          </div>
+
+          <div class="phone-shadow"></div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <!-- Status bar -->
+              <div class="ph-status">
+                <span>20:47</span>
+                <span class="ph-icons">
+                  <svg viewBox="0 0 18 12" fill="currentColor"><path d="M1 10h3v2H1zM5 7h3v5H5zM9 4h3v8H9zM13 1h3v11h-3z"/></svg>
+                  <svg viewBox="0 0 24 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="20" height="8" rx="2"/><rect x="3" y="4" width="12" height="4" fill="currentColor"/><path d="M22 5v2" stroke-linecap="round"/></svg>
+                </span>
+              </div>
+
+              <!-- App header -->
+              <div class="ph-header">
+                <div class="ph-greet">
+                  <div class="ph-eyebrow">Ciao, Marco</div>
+                  <div class="ph-title">Partita in corso</div>
+                </div>
+                <div class="ph-avatar-stack">
+                  <div class="ph-avatar" style="background:#D4441F"></div>
+                  <div class="ph-avatar" style="background:#7F3E8E"></div>
+                  <div class="ph-avatar" style="background:#C8982E"></div>
+                </div>
+              </div>
+
+              <!-- Live card -->
+              <div class="ph-card ph-card-live">
+                <div class="ph-live-bar">
+                  <span class="ph-live-dot">
+                    <span class="ph-live-pulse"></span>
+                  </span>
+                  <span class="ph-live-text">LIVE · Turno 14</span>
+                </div>
+                <div class="ph-live-timer">47:22</div>
+                <div class="ph-live-sub">Tocca a <strong>Carla</strong></div>
+              </div>
+
+              <!-- Players -->
+              <div class="ph-players">
+                <div class="ph-player ph-player-lead">
+                  <div class="ph-player-cart" style="color:#D4441F">
+                    <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
                   </div>
+                  <div class="ph-player-info">
+                    <div class="ph-player-name">Marco <span class="ph-you">tu</span></div>
+                    <div class="ph-player-stat">
+                      <span class="terr-badge">18 territori</span>
+                      <span class="troops">· 42 truppe</span>
+                    </div>
+                  </div>
+                  <div class="ph-player-rank">1°</div>
                 </div>
-                <div class="wr-right">
-                  <div class="wr-label">Territori</div>
-                  <div class="wr-terr">18<span>/42</span></div>
-                  <div class="wr-bar"><div class="wr-fill" style="width:43%"></div></div>
+                <div class="ph-player">
+                  <div class="ph-player-cart" style="color:#7F3E8E">
+                    <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+                  </div>
+                  <div class="ph-player-info">
+                    <div class="ph-player-name">Carla</div>
+                    <div class="ph-player-stat">
+                      <span class="terr-badge">14 territori</span>
+                      <span class="troops">· 38 truppe</span>
+                    </div>
+                  </div>
+                  <div class="ph-player-rank">2°</div>
+                </div>
+                <div class="ph-player">
+                  <div class="ph-player-cart" style="color:#2E6F4A">
+                    <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+                  </div>
+                  <div class="ph-player-info">
+                    <div class="ph-player-name">Bruno</div>
+                    <div class="ph-player-stat">
+                      <span class="terr-badge">10 territori</span>
+                      <span class="troops">· 27 truppe</span>
+                    </div>
+                  </div>
+                  <div class="ph-player-rank">3°</div>
                 </div>
               </div>
-              <div class="app-card chart-card">
-                <div class="chart-label">Controllo Continenti</div>
-                <div class="bar-chart">
-                  <div class="bar-group"><div class="bar" style="--h:70%;--c:#c0392b"></div><span>EU</span></div>
-                  <div class="bar-group"><div class="bar" style="--h:55%;--c:#e67e22"></div><span>AS</span></div>
-                  <div class="bar-group"><div class="bar" style="--h:40%;--c:#f1c40f"></div><span>AF</span></div>
-                  <div class="bar-group"><div class="bar" style="--h:80%;--c:#c0392b"></div><span>AM</span></div>
-                  <div class="bar-group"><div class="bar" style="--h:30%;--c:#3498db"></div><span>OC</span></div>
-                </div>
-              </div>
-              <div class="app-card leaderboard-card">
-                <div class="lb-title">🏆 Classifica</div>
-                <div class="lb-row lb-gold"><span class="lb-pos">1</span><span class="lb-name">Carla</span><span class="lb-pts">987 XP</span></div>
-                <div class="lb-row"><span class="lb-pos">2</span><span class="lb-name">Bruno</span><span class="lb-pts">856 XP</span></div>
-                <div class="lb-row lb-you"><span class="lb-pos">3</span><span class="lb-name">Tu →</span><span class="lb-pts">793 XP</span></div>
+
+              <!-- CTA -->
+              <div class="ph-cta">
+                Registra mossa
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </div>
             </div>
           </div>
         </div>
-        <!-- Floating badges -->
-        <div class="float-badge badge-1 float-anim">
-          <span class="fb-icon">📊</span>
-          <div><div class="fb-title">Stats Live</div><div class="fb-sub">Aggiornamento istantaneo</div></div>
-        </div>
-        <div class="float-badge badge-2 float-anim-slow">
-          <span class="fb-icon">🎯</span>
-          <div><div class="fb-title">+64.2% Win Rate</div><div class="fb-sub">Il tuo record personale</div></div>
-        </div>
-        <div class="float-badge badge-3 float-anim-med">
-          <span class="fb-icon">⚔️</span>
-          <div><div class="fb-title">18 Territori</div><div class="fb-sub">Controllo mappa</div></div>
-        </div>
       </div>
     </div>
-    <div class="hero-scroll-hint">
-      <span>Scorri</span>
-      <div class="scroll-arrow"></div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint">
+      <span>Continua</span>
+      <svg viewBox="0 0 12 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <path d="M6 2v14M2 12l4 4 4-4"/>
+      </svg>
     </div>
   </section>
+
+  <!-- MARQUEE BAND — playing nights -->
+  <div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="mq-item">★ Giovedì sera · Milano</span>
+      <span class="mq-item">♦ 3 rimonte impossibili</span>
+      <span class="mq-item">★ Sabato · Casa di Bruno</span>
+      <span class="mq-item">♦ 47 minuti al turno</span>
+      <span class="mq-item">★ Domenica · Match revenge</span>
+      <span class="mq-item">♦ 18 territori conquistati</span>
+      <span class="mq-item">★ Giovedì sera · Milano</span>
+      <span class="mq-item">♦ 3 rimonte impossibili</span>
+      <span class="mq-item">★ Sabato · Casa di Bruno</span>
+      <span class="mq-item">♦ 47 minuti al turno</span>
+      <span class="mq-item">★ Domenica · Match revenge</span>
+      <span class="mq-item">♦ 18 territori conquistati</span>
+    </div>
+  </div>
 
   <!-- FEATURES -->
   <section class="features" id="features">
     <div class="section-header reveal">
-      <span class="section-tag">Features</span>
-      <h2 class="section-title">Tutto ciò che un <span class="gradient-text">Generale</span> merita</h2>
-      <p class="section-sub">Ogni dettaglio della partita registrato, analizzato e presentato in modo impeccabile.</p>
+      <span class="section-tag">Il kit del Generale</span>
+      <h2 class="section-title">Tutto quello che serve,<br/><em>niente</em> di troppo.</h2>
+      <p class="section-sub">Non è un foglio Excel con un logo rosso. È lo strumento che il tuo tavolo aspettava da anni.</p>
     </div>
-    <div class="features-grid">
-      <div class="feature-card reveal" id="feat-1">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">📊</div>
-        </div>
-        <h3>Dashboard in tempo reale</h3>
-        <p>Vedi le statistiche della partita aggiornarsi turno per turno. Chi sta guadagnando terreno? Chi perderà presto?</p>
-        <div class="feat-glow"></div>
-      </div>
-      <div class="feature-card reveal" id="feat-2">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">🏆</div>
-        </div>
-        <h3>Classifica globale</h3>
-        <p>Confronta le tue performance storiche con quelle degli amici. Scala la leaderboard e difendi il titolo di Generale Supremo.</p>
-        <div class="feat-glow"></div>
-      </div>
-      <div class="feature-card reveal" id="feat-3">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">🗺️</div>
-        </div>
-        <h3>Mappa interattiva</h3>
-        <p>Visualizza il controllo del territorio su una mappa animata. Osserva l'evoluzione della partita come un vero stratega.</p>
-        <div class="feat-glow"></div>
-      </div>
-      <div class="feature-card reveal" id="feat-4">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">📈</div>
-        </div>
-        <h3>Analisi storica</h3>
-        <p>Grafici dettagliati di ogni partita giocata. Trova i tuoi pattern, correggi i tuoi errori e affina la strategia.</p>
-        <div class="feat-glow"></div>
-      </div>
-      <div class="feature-card reveal" id="feat-5">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">⚡</div>
-        </div>
-        <h3>Sincronizzazione istantanea</h3>
-        <p>Tutti i giocatori al tavolo restano sincronizzati automaticamente. Nessun inserimento manuale, zero distrazioni.</p>
-        <div class="feat-glow"></div>
-      </div>
-      <div class="feature-card reveal" id="feat-6">
-        <div class="feat-icon-wrap">
-          <div class="feat-icon">🎖️</div>
-        </div>
-        <h3>Badge e achievement</h3>
-        <p>Conquista medaglie per le tue imprese: "Primo Sangue", "Dominio Totale", "Rimonta Epica". Ogni vittoria ha la sua gloria.</p>
-        <div class="feat-glow"></div>
-      </div>
-    </div>
-  </section>
 
-  <!-- STATS SHOWCASE -->
-  <section class="stats-section" id="stats">
-    <div class="stats-inner">
-      <div class="stats-text reveal">
-        <span class="section-tag">Statistiche</span>
-        <h2 class="section-title">I numeri parlano<br/><span class="gradient-text">da soli</span></h2>
-        <p class="section-sub">Risikino trasforma ogni partita in un dataset prezioso. Win rate, distribuzione eserciti, controllo continenti: tutto a portata di swipe.</p>
-        <ul class="stats-list">
-          <li class="stats-item reveal">
-            <div class="si-icon">🎯</div>
-            <div><strong>Win Rate preciso al decimale</strong><br/>Analisi per ogni giocatore, per ogni partita, per ogni continente.</div>
-          </li>
-          <li class="stats-item reveal">
-            <div class="si-icon">📅</div>
-            <div><strong>Storico illimitato</strong><br/>Ogni partita salvata per sempre. Rivivi le tue leggende e studia le sconfitte.</div>
-          </li>
-          <li class="stats-item reveal">
-            <div class="si-icon">👥</div>
-            <div><strong>Multi-giocatore locale</strong><br/>Fino a 6 giocatori nello stesso gruppo. Un'unica app per tutta la compagnia.</div>
-          </li>
-        </ul>
-      </div>
-      <div class="stats-visual reveal">
-        <div class="stats-card-stack">
-          <div class="sc sc-back"></div>
-          <div class="sc sc-mid"></div>
-          <div class="sc sc-front">
-            <div class="scard-header">
-              <span class="scard-title">Win Rate per Continente</span>
-            </div>
-            <div class="donut-wrap">
-              <svg class="donut-svg" viewBox="0 0 120 120">
-                <circle class="donut-track" cx="60" cy="60" r="48" />
-                <circle class="donut-seg seg-eu" cx="60" cy="60" r="48" stroke-dasharray="70 232" stroke-dashoffset="0"/>
-                <circle class="donut-seg seg-as" cx="60" cy="60" r="48" stroke-dasharray="50 252" stroke-dashoffset="-70"/>
-                <circle class="donut-seg seg-af" cx="60" cy="60" r="48" stroke-dasharray="40 262" stroke-dashoffset="-120"/>
-                <circle class="donut-seg seg-am" cx="60" cy="60" r="48" stroke-dasharray="55 247" stroke-dashoffset="-160"/>
-                <circle class="donut-seg seg-oc" cx="60" cy="60" r="48" stroke-dasharray="87 215" stroke-dashoffset="-215"/>
-                <text x="60" y="56" class="donut-center-label">64.2%</text>
-                <text x="60" y="68" class="donut-center-sub">Win Rate</text>
-              </svg>
-              <div class="donut-legend">
-                <div class="dl-item"><span class="dl-dot" style="background:#c0392b"></span>Europa 23%</div>
-                <div class="dl-item"><span class="dl-dot" style="background:#e67e22"></span>Asia 16%</div>
-                <div class="dl-item"><span class="dl-dot" style="background:#f1c40f"></span>Africa 13%</div>
-                <div class="dl-item"><span class="dl-dot" style="background:#27ae60"></span>America 18%</div>
-                <div class="dl-item"><span class="dl-dot" style="background:#2980b9"></span>Oceania 30%</div>
-              </div>
-            </div>
-            <div class="scard-mini-stats">
-              <div class="ms-item"><span class="ms-val">47</span><span class="ms-lbl">Partite</span></div>
-              <div class="ms-item"><span class="ms-val">30</span><span class="ms-lbl">Vittorie</span></div>
-              <div class="ms-item"><span class="ms-val">17</span><span class="ms-lbl">Sconfitte</span></div>
-            </div>
+    <div class="features-grid">
+      <article class="feature-card feature-big reveal">
+        <div class="fc-eyebrow">01 · Live</div>
+        <h3 class="fc-title">Dashboard turno per turno</h3>
+        <p class="fc-desc">Chi sta avanzando, chi sta per crollare. Territori, truppe, continenti controllati — aggiornati mentre tirate i dadi.</p>
+        <div class="fc-visual fc-visual-live">
+          <div class="fc-live-bars">
+            <div class="fc-lb" style="--h:80%;--c:#D4441F"><span>Marco</span></div>
+            <div class="fc-lb" style="--h:65%;--c:#7F3E8E"><span>Carla</span></div>
+            <div class="fc-lb" style="--h:45%;--c:#2E6F4A"><span>Bruno</span></div>
+            <div class="fc-lb" style="--h:28%;--c:#C8982E"><span>Ada</span></div>
+          </div>
+          <div class="fc-live-legend">Territori controllati · T14</div>
+        </div>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="fc-eyebrow">02 · Roster</div>
+        <h3 class="fc-title">Sei carretti, sei personalità</h3>
+        <p class="fc-desc">Rosso per chi attacca, viola per chi trama, verde per chi aspetta. Il tuo carretto ti segue partita dopo partita.</p>
+        <div class="fc-carts">
+          <div class="fc-cart" style="color:#D4441F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+          <div class="fc-cart" style="color:#7F3E8E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+          <div class="fc-cart" style="color:#2E6F4A"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+          <div class="fc-cart" style="color:#C8982E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+          <div class="fc-cart" style="color:#1E3A5F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+          <div class="fc-cart" style="color:#1A1510"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        </div>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="fc-eyebrow">03 · Classifica</div>
+        <h3 class="fc-title">La leaderboard del gruppo</h3>
+        <p class="fc-desc">Il vero titolo che conta non è la classifica mondiale. È quella del giovedì sera. Difendi il tuo podio.</p>
+        <div class="fc-podium">
+          <div class="fc-po-bar fc-po-2"><span class="fc-po-pos">2</span></div>
+          <div class="fc-po-bar fc-po-1">
+            <div class="fc-po-cart" style="color:#D4441F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+            <span class="fc-po-pos">1</span>
+          </div>
+          <div class="fc-po-bar fc-po-3"><span class="fc-po-pos">3</span></div>
+        </div>
+      </article>
+
+      <article class="feature-card feature-wide reveal">
+        <div class="fc-eyebrow">04 · Storia</div>
+        <h3 class="fc-title">Ogni partita è un capitolo</h3>
+        <p class="fc-desc">Salva la rimonta impossibile del 12 marzo, il tradimento di Bruno il 4 aprile, la tua prima vittoria da solo contro tre. Tutto archiviato.</p>
+        <div class="fc-timeline">
+          <div class="fc-tl-item">
+            <span class="fc-tl-date">12 MAR</span>
+            <span class="fc-tl-line"></span>
+            <span class="fc-tl-dot" style="background:#D4441F"></span>
+            <span class="fc-tl-label">Rimonta da 3 territori</span>
+          </div>
+          <div class="fc-tl-item">
+            <span class="fc-tl-date">04 APR</span>
+            <span class="fc-tl-line"></span>
+            <span class="fc-tl-dot" style="background:#7F3E8E"></span>
+            <span class="fc-tl-label">Asia conquistata</span>
+          </div>
+          <div class="fc-tl-item">
+            <span class="fc-tl-date">19 APR</span>
+            <span class="fc-tl-line"></span>
+            <span class="fc-tl-dot" style="background:#C8982E"></span>
+            <span class="fc-tl-label">1 vs 3 · vinta</span>
           </div>
         </div>
+      </article>
+
+      <article class="feature-card reveal">
+        <div class="fc-eyebrow">05 · Stats</div>
+        <h3 class="fc-title">Numeri che ti tradiscono</h3>
+        <p class="fc-desc">Win rate, territori medi, continenti preferiti. Scopri che attacchi sempre l'Australia (e che è un problema).</p>
+        <div class="fc-donut">
+          <svg viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="currentColor" stroke-width="16" opacity="0.15"/>
+            <circle class="donut-seg" cx="60" cy="60" r="48" fill="none" stroke="#D4441F" stroke-width="16" stroke-dasharray="194 302" transform="rotate(-90 60 60)" stroke-linecap="butt"/>
+          </svg>
+          <div class="fc-donut-center">
+            <span class="fc-donut-big">64<em>%</em></span>
+            <span class="fc-donut-small">win rate</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CARRETTI SHOWCASE -->
+  <section class="carretti-section" id="carretti">
+    <div class="cs-header reveal">
+      <span class="section-tag">I sei carretti</span>
+      <h2 class="section-title">Scegli il tuo,<br/><em>è una questione seria.</em></h2>
+      <p class="section-sub">Ogni giocatore al tavolo sceglie il proprio carretto a inizio stagione. Rosso è tuo finché non lo cedi. E tu non lo cedi.</p>
+    </div>
+
+    <div class="cart-showcase reveal">
+      <div class="cs-stage">
+        <svg class="cs-hex-ring" viewBox="0 0 600 600">
+          <defs>
+            <pattern id="hexShow" x="0" y="0" width="40" height="34.6" patternUnits="userSpaceOnUse">
+              <path d="M20 0 L40 11.5 L40 34.6 L20 46 L0 34.6 L0 11.5 Z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <circle cx="300" cy="300" r="260" fill="url(#hexShow)" opacity="0.3"/>
+          <circle cx="300" cy="300" r="260" fill="none" stroke="currentColor" stroke-width="1" opacity="0.15" stroke-dasharray="2 6"/>
+          <circle cx="300" cy="300" r="180" fill="none" stroke="currentColor" stroke-width="1" opacity="0.12"/>
+        </svg>
+        <div class="cs-cart-display">
+          <svg class="cs-carretto" viewBox="0 0 1363 649" id="cs-big-cart"><use href="#carretto-path" fill="#D4441F"/></svg>
+        </div>
+      </div>
+
+      <div class="cs-picker">
+        <div class="cs-picker-label">Prova un carretto</div>
+        <div class="cart-chips">
+          <button class="cart-chip is-active" data-cart="rosso" style="--cart-color:#D4441F" data-name="Rosso" data-desc="L'attaccante. Va sempre in avanti. Perde spesso, vince quando conta.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Rosso</span>
+          </button>
+          <button class="cart-chip" data-cart="viola" style="--cart-color:#7F3E8E" data-name="Viola" data-desc="Lo stratega. Parla poco, pianifica molto. Il tuo peggior incubo al turno 10.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Viola</span>
+          </button>
+          <button class="cart-chip" data-cart="verde" style="--cart-color:#2E6F4A" data-name="Verde" data-desc="Il paziente. Passa inosservato finché non possiede un continente.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Verde</span>
+          </button>
+          <button class="cart-chip" data-cart="giallo" style="--cart-color:#C8982E" data-name="Giallo" data-desc="Il diplomatico. Stringe alleanze. Le rompe meglio.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Giallo</span>
+          </button>
+          <button class="cart-chip" data-cart="blu" style="--cart-color:#1E3A5F" data-name="Blu" data-desc="Il metodico. Conta le truppe due volte. Non sbaglia un calcolo.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Blu</span>
+          </button>
+          <button class="cart-chip" data-cart="nero" style="--cart-color:#1A1510" data-name="Nero" data-desc="L'imprevedibile. Fa cose che non ha senso fare. Spesso funzionano.">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+            <span>Nero</span>
+          </button>
+        </div>
+
+        <div class="cs-description">
+          <div class="cs-desc-name" id="cs-name">Rosso</div>
+          <div class="cs-desc-text" id="cs-desc">L'attaccante. Va sempre in avanti. Perde spesso, vince quando conta.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="how-section" id="how">
+  <!-- DIARIO — testimonial-style story cards -->
+  <section class="diario" id="diario">
     <div class="section-header reveal">
-      <span class="section-tag">Come funziona</span>
-      <h2 class="section-title">Tre passi verso la <span class="gradient-text">gloria</span></h2>
+      <span class="section-tag">Dal diario</span>
+      <h2 class="section-title">Le storie che<br/>altrimenti si <em>dimenticano</em>.</h2>
     </div>
-    <div class="steps-container">
-      <div class="step reveal" id="step-1">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-icon">🧑‍🤝‍🧑</div>
-          <h3>Crea la partita</h3>
-          <p>Aggiungi i giocatori, scegli la mappa e personalizza le regole. Risikino è pronto in 30 secondi.</p>
+
+    <div class="diario-grid">
+      <article class="story-card story-1 reveal">
+        <div class="story-header">
+          <span class="story-chapter">Capitolo 12</span>
+          <span class="story-date">12 marzo 2026</span>
         </div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step reveal" id="step-2">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-icon">⚔️</div>
-          <h3>Gioca e registra</h3>
-          <p>Durante la partita, inserisci i movimenti. Le statistiche si aggiornano in tempo reale su tutti i dispositivi.</p>
+        <h3 class="story-title">"Ero ridotto a 3 territori. Ho vinto comunque."</h3>
+        <div class="story-body">
+          <p>Partita del giovedì. Bruno aveva quasi fatto l'Asia intera. Io ero in Sud America con i <em>minimi</em>. Due rimonte di fila in Africa, e alla fine hanno dovuto tirarmi su la sedia.</p>
         </div>
-        <div class="step-line"></div>
-      </div>
-      <div class="step reveal" id="step-3">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-icon">📈</div>
-          <h3>Analizza e migliora</h3>
-          <p>A partita finita, esplora i dati. Scopri i tuoi punti di forza, correggi le debolezze, scala la classifica.</p>
+        <div class="story-footer">
+          <div class="story-avatar" style="color:#D4441F">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+          </div>
+          <div>
+            <div class="story-name">Marco</div>
+            <div class="story-meta">Carretto rosso · 47 partite</div>
+          </div>
+          <div class="story-badge">Rimonta epica</div>
         </div>
-      </div>
+      </article>
+
+      <article class="story-card story-2 reveal">
+        <div class="story-header">
+          <span class="story-chapter">Capitolo 31</span>
+          <span class="story-date">4 aprile 2026</span>
+        </div>
+        <h3 class="story-title">"Ho scoperto che attacco sempre l'Australia."</h3>
+        <div class="story-body">
+          <p>Risikino me l'ha detto senza mezzi termini. 73% dei miei attacchi nei primi 5 turni sono in Oceania. Credevo fosse una strategia. Era un'abitudine.</p>
+        </div>
+        <div class="story-footer">
+          <div class="story-avatar" style="color:#7F3E8E">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+          </div>
+          <div>
+            <div class="story-name">Carla</div>
+            <div class="story-meta">Carretto viola · 38 partite</div>
+          </div>
+          <div class="story-badge">Stats insight</div>
+        </div>
+      </article>
+
+      <article class="story-card story-3 reveal">
+        <div class="story-header">
+          <span class="story-chapter">Capitolo 47</span>
+          <span class="story-date">19 aprile 2026</span>
+        </div>
+        <h3 class="story-title">"1 contro 3. Tre ore. Ho vinto."</h3>
+        <div class="story-body">
+          <p>Loro tre alleati contro di me. L'ho segnato in Risikino: <strong>03h 14m</strong>, 22 turni, 4 continenti cambiati di mano. La serata più bella del 2026, fino a questo punto.</p>
+        </div>
+        <div class="story-footer">
+          <div class="story-avatar" style="color:#2E6F4A">
+            <svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg>
+          </div>
+          <div>
+            <div class="story-name">Bruno</div>
+            <div class="story-meta">Carretto verde · 62 partite</div>
+          </div>
+          <div class="story-badge">1 vs 3 · win</div>
+        </div>
+      </article>
     </div>
   </section>
 
   <!-- DOWNLOAD CTA -->
   <section class="download-section" id="download">
-    <div class="download-bg-orb orb-1"></div>
-    <div class="download-bg-orb orb-2"></div>
-    <div class="download-content reveal">
-      <span class="section-tag">Download</span>
-      <h2 class="section-title">Pronto a diventare<br/><span class="gradient-text">Generale Supremo?</span></h2>
-      <p class="section-sub">Gratuito, senza pubblicità, senza abbonamenti. Solo puro Risiko con statistiche da pro.</p>
-      <div class="download-buttons">
-        <a href="#" class="store-btn" id="appstore-btn">
-          <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div class="store-text">
-            <span class="store-top">Scarica su</span>
-            <span class="store-name">App Store</span>
-          </div>
-        </a>
-        <a href="#" class="store-btn" id="playstore-btn">
-          <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.303l2.302 1.33c.462.267.462.972 0 1.24l-2.302 1.33L15 12l2.698-1.596zM5.864 2.658L16.8 8.99 14.498 11.3 5.863 2.658z"/></svg>
-          <div class="store-text">
-            <span class="store-top">Disponibile su</span>
-            <span class="store-name">Google Play</span>
-          </div>
-        </a>
+    <div class="download-stage">
+      <div class="dl-confetti" aria-hidden="true">
+        <span style="--c:#D4441F;--x:8%;--d:0s"></span>
+        <span style="--c:#7F3E8E;--x:22%;--d:0.3s"></span>
+        <span style="--c:#C8982E;--x:36%;--d:0.6s"></span>
+        <span style="--c:#2E6F4A;--x:58%;--d:0.2s"></span>
+        <span style="--c:#1E3A5F;--x:74%;--d:0.4s"></span>
+        <span style="--c:#1A1510;--x:88%;--d:0.7s"></span>
+      </div>
+
+      <div class="download-content reveal">
+        <span class="section-tag">Scarica</span>
+        <h2 class="section-title">Il prossimo giovedì<br/>vai <em>preparato.</em></h2>
+        <p class="section-sub">Gratis, senza pubblicità, senza abbonamenti. Le tue partite restano tue.</p>
+        <div class="download-buttons">
+          <a href="#" class="store-btn">
+            <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div class="store-text">
+              <span class="store-top">Scarica su</span>
+              <span class="store-name">App Store</span>
+            </div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.303l2.302 1.33c.462.267.462.972 0 1.24l-2.302 1.33L15 12l2.698-1.596zM5.864 2.658L16.8 8.99 14.498 11.3 5.863 2.658z"/></svg>
+            <div class="store-text">
+              <span class="store-top">Disponibile su</span>
+              <span class="store-name">Google Play</span>
+            </div>
+          </a>
+        </div>
+        <div class="dl-note">★ Nessun account obbligatorio · ★ Dati solo sul tuo dispositivo</div>
+      </div>
+
+      <!-- Ornamental carretti rolling across -->
+      <div class="dl-convoy">
+        <div class="dl-cart" style="color:#D4441F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div class="dl-cart" style="color:#7F3E8E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div class="dl-cart" style="color:#C8982E"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div class="dl-cart" style="color:#2E6F4A"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div class="dl-cart" style="color:#1E3A5F"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
+        <div class="dl-cart" style="color:#1A1510"><svg viewBox="0 0 1363 649"><use href="#carretto-path"/></svg></div>
       </div>
     </div>
   </section>
@@ -332,18 +561,44 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
-        <span class="logo-icon">♟️</span>
+        <span class="logo-mark">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" fill="#D4441F"/>
+            <path d="M10 26 L20 10 L30 26 Z" fill="#F5F1EA"/>
+            <circle cx="20" cy="22" r="3" fill="#C8982E"/>
+          </svg>
+        </span>
         <span class="logo-text">Risikino</span>
       </div>
-      <p class="footer-tagline">Fatta con ❤️ per chi ama conquistare il mondo.</p>
+      <p class="footer-tagline">Fatto con rispetto per chi il giovedì sera <em>conquista davvero</em>.</p>
       <div class="footer-links">
         <a href="privacy.html" class="footer-link">Privacy Policy</a>
-        <span class="footer-link-sep">·</span>
+        <span class="footer-sep">·</span>
         <a href="elimina-account.html" class="footer-link">Elimina Account</a>
       </div>
-      <p class="footer-copy">© 2026 Risikino. Tutti i diritti riservati.</p>
+      <p class="footer-copy">© 2026 Risikino · Tutti i carretti riservati.</p>
     </div>
   </footer>
+
+  <!-- Carretto SVG symbol defs (inline, reused everywhere) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="carretto-path" viewBox="0 0 1363.89 649.09">
+        <path d="M289,23.54c1.47-10.34,14.12-22.15,24.51-23.48l289.03-.06c13.82,2.03,23.72,11.25,26.04,25.1l296.82.05c18.12,2.34,27.53,17.35,25.6,34.9l386.42.08c11.74,2.61,24.13,10.41,25.59,23.41,1.15,10.2,1.34,45.03-.46,54.55-1.29,6.81-7.66,15.04-13.86,18.14-.94.47-6.8,2.82-7.18,2.82h-41.5v35.5c0,9.47-18.07,22.92-27.92,20.85l-205.07-.35c-.47,1.92.71,1.93,1.68,2.81,31.79,28.93,55.73,71.19,67.58,112.42,45.06,156.71-74.83,312.52-234.72,318.81H241.47c-184.92-11.05-302.02-208.96-208.63-374.71,35.61-63.21,102.12-111.57,173.94-124.06,27.39-4.76,54.46-4.63,82.23-4.27V23.55h-.01Z" fill="currentColor"/>
+        <polygon points="602 26.04 315 26.04 316.63 146.88 602 145.54 602 26.04" fill="#F5F1EA" opacity="0.35"/>
+        <polygon points="924 51.04 629 51.04 629 145.54 924 146.04 924 51.04" fill="#F5F1EA" opacity="0.35"/>
+        <polygon points="1337 133.04 1337 87.54 951 87.04 951 133.04 1337 133.04" fill="#F5F1EA" opacity="0.35"/>
+        <path d="M1034.5,189.04h238l1.5-1.5v-24c0-.94-.45-2.44-.47-3.51l-297.52-.98,41.69,18.79,16.8,11.2Z" fill="#F5F1EA" opacity="0.35"/>
+        <path d="M1050.59,236.48c-39.87-38.86-93.18-62.05-149.05-64.47-207.77,2.59-415.46-2.78-623.04,0-70.07.94-123.42,9.67-177.02,59.01-146.25,134.62-63.25,370.74,130.08,390.9,227.42,1.95,455.43,1.72,682.94.12,176.55-20,268.46-220.16,155.48-364.24l-19.38-21.32h-.01Z" fill="#F5F1EA" opacity="0.3"/>
+        <path d="M978.59,288.48c67.39,59.39,63.83,165.7-6.7,220.96-30.65,24.01-63.15,30.74-101.35,31.65-200.94,4.78-403.7-3.72-605.09,0-66.26-1.15-124.66-42.29-142.17-106.83-24.8-91.44,43.92-179.79,137.27-182.76l622.4.02c34.87.2,69.63,14.05,95.64,36.97h0Z" fill="currentColor"/>
+        <path d="M969.42,319.62c-18.62-20.66-43.52-34.29-70.98-39.62-205.72.15-411.49-4.17-617.94-1.4-40.98.55-73.56,6.48-102.46,37.93-68.43,74.5-21.11,186.17,76.59,196.38l635.86.11c95.59-8.81,145.39-119.67,78.93-193.4h0Z" fill="#F5F1EA" opacity="0.35"/>
+        <path d="M338.65,326.39c47.28,47.28,34.1,125.29-24.14,156.66-68.43,36.85-152.71-19.37-144.49-96.5,8.59-80.68,110.5-118.29,168.63-60.16Z" fill="currentColor"/>
+        <path d="M323.59,441.63c63.08-78.68-61.31-167.01-115.4-83.9-48.89,75.12,60.48,152.4,115.4,83.9Z" fill="#F5F1EA" opacity="0.35"/>
+        <path d="M954.59,457.63c-49.46,61.76-149.96,42.04-171.85-33.83-23.85-82.68,64.4-153.92,140.75-114.75,54.84,28.14,69.65,100.45,31.1,148.58Z" fill="currentColor"/>
+        <path d="M831.42,450.62c37.69,31.32,95.68,17.85,113.04-28.62,25.08-67.13-52.49-126.04-110.37-82.37-36.46,27.51-37.89,81.73-2.66,111h-.01Z" fill="#F5F1EA" opacity="0.35"/>
+      </symbol>
+    </defs>
+  </svg>
 
   <script src="main.js"></script>
 </body>
