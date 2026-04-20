@@ -219,6 +219,8 @@ body {
   place-items: center;
 }
 .logo-mark svg { width: 100%; height: 100%; }
+.logo-bg { fill: #F5F1EA; }
+[data-theme="dark"] .logo-bg { fill: #1A1510; }
 .logo-text {
   font-family: var(--ff-display);
   font-weight: 800;
@@ -1721,6 +1723,7 @@ body {
 
   .cart-showcase { grid-template-columns: 1fr; gap: 40px; }
   .diario-grid { grid-template-columns: 1fr; }
+  .scroll-hint { display: none; }
 }
 @media (max-width: 640px) {
   .nav-links { display: none; }
